@@ -43,7 +43,8 @@ export const RoutineList = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 40,
+        backgroundColor: 'white'
+        //paddingTop: 40,
     },
     inputBox: {
         flex: 1,

@@ -10,10 +10,13 @@ import {
 
 export const RoutineInput = (props) => {
 
+    // create state for newRoutine
     const [newRoutine, setNewRoutine] = useState('');
 
+    // function is called when user presses "Add" Btn
     const submit = (newRoutine) => {
         console.log("Submitted newRoutine -->", newRoutine);
+        // addNewRoutine is sent from RoutineList
         props.addNewRoutine(newRoutine);
     }
 

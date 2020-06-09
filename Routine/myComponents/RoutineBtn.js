@@ -3,11 +3,12 @@ import {
   StyleSheet,
   View,
   Text,
-  ScrollView,
   TouchableHighlight
 } from 'react-native';
 
 export const RoutineBtn = (props) => {
+    // component for each button
+    // props.name is sent from RoutineList
     return (
         <TouchableHighlight style={styles.button}
         onPress={() => {

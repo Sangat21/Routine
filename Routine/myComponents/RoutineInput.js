@@ -24,8 +24,10 @@ export const RoutineInput = (props) => {
         }
     }
 
+
+
     return (
-        <View style={styles.container}>
+    <View style={styles.container}>
         <TextInput style={styles.inputBox}
         placeholder="Add a new routine"
         onChangeText={text => setNewRoutine(text)}
@@ -34,7 +36,7 @@ export const RoutineInput = (props) => {
         <Text style={styles.btn}
         onPress={() => submit(newRoutine.trim())}
         > Add </Text>
-        </View>
+    </View>
     )
 }
 

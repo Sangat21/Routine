@@ -15,22 +15,28 @@ export const RoutineInput = (props) => {
 
     // function is called when user presses "Add" Btn
     const submit = (newRoutine) => {
-        console.log("Submitted newRoutine -->", newRoutine);
-        // addNewRoutine is sent from RoutineList
-        props.addNewRoutine(newRoutine);
+        // Confirming non-empty string was given
+        if(newRoutine != "") {
+            console.log("Submitted newRoutine -->", newRoutine);
+            // addNewRoutine is sent from RoutineList
+            props.addNewRoutine(newRoutine);
+            setNewRoutine('');
+        }
     }
 
+
+
     return (
-        <View style={styles.container}>
+    <View style={styles.container}>
         <TextInput style={styles.inputBox}
         placeholder="Add a new routine"
         onChangeText={text => setNewRoutine(text)}
         defaultValue={newRoutine}
         />
         <Text style={styles.btn}
-        onPress={() => submit(newRoutine)}
+        onPress={() => submit(newRoutine.trim())}
         > Add </Text>
-        </View>
+    </View>
     )
 }
 

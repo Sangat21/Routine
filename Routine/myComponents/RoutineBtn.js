@@ -13,7 +13,6 @@ export const RoutineBtn = (props) => {
         <TouchableHighlight style={styles.button}
         onPress={() => {
             console.log(props.name, " Selected");
-            props.BtnClicked(props.name);
         }} underlayColor="skyblue"
         >
         <View style={styles.box}>

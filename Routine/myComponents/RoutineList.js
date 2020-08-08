@@ -8,10 +8,10 @@ import {
 import {RoutineBtn} from './RoutineBtn.js'
 import {RoutineInput} from './RoutineInput.js'
 
-export const RoutineList = (props) => {
+export const RoutineList = () => {
 
     // create state for allRoutines
-    const [allRoutines, setAllRoutines] = useState([{key: "Reading"}]);
+    const [allRoutines, setAllRoutines] = useState([]);
 
     // update allRoutines state
     const addRoutine = (routine) => {
@@ -28,10 +28,13 @@ export const RoutineList = (props) => {
 
     return (
         <View style={styles.container}>
+        <RoutineInput style={styles.inputBox}
+            addNewRoutine={addRoutine}
+        />
         <FlatList
         data={allRoutines}
         renderItem={
-            ({item}) => <RoutineBtn name={item.key} BtnClicked={props.btnClicked} />
+            ({item}) => <RoutineBtn name={item.key} />
         }
         />
         </View>

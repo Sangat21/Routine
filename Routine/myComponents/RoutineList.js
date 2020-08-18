@@ -17,6 +17,7 @@ export const RoutineList = () => {
     const addRoutine = (routine) => {
         console.log("Adding New Routine -> ", routine);
 
+        if(!allRoutines.some(item => item.key == routine)){
         // add new routine to state
         setAllRoutines([
             ...allRoutines,
@@ -24,6 +25,9 @@ export const RoutineList = () => {
         ])
 
         console.log(routine, " Added Successfully");
+        } else {
+            console.log("Routine Exists");
+        }
     }
 
     return (

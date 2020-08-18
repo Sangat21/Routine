@@ -11,7 +11,10 @@ import {RoutineInput} from './RoutineInput.js'
 export const RoutineList = () => {
 
     // create state for allRoutines
-    const [allRoutines, setAllRoutines] = useState([]);
+    const [allRoutines, setAllRoutines] = useState([
+        {key: 'Reading', time: '2:00', timeLeft: '1:05'},
+        {key: 'Walking', time: '1:00', timeLeft: '1:00'}
+    ]);
 
     // update allRoutines state
     const addRoutine = (routine) => {
@@ -38,7 +41,7 @@ export const RoutineList = () => {
         <FlatList
         data={allRoutines}
         renderItem={
-            ({item}) => <RoutineBtn name={item.key} />
+            ({item}) => <RoutineBtn name={item.key} time={item.time} timeLeft={item.timeLeft} />
         }
         />
         </View>

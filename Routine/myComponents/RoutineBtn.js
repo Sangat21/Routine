@@ -11,13 +11,13 @@ export const RoutineBtn = (props) => {
     // props.name is sent from RoutineList
     return (
         <TouchableHighlight style={styles.button}
-        onPress={() => {
-            console.log(props.name, " Selected");
-        }} underlayColor="skyblue"
-        >
-        <View style={styles.box}>
-        <Text style={styles.text}> {props.name} </Text>
-        </View>
+        onPress={() => console.log(props.name, " Selected")}
+        underlayColor="skyblue" >
+            <View style={styles.box}>
+                <Text style={styles.itemName}>{props.name}</Text>
+                <Text style={styles.itemTime}>{props.time} hrs</Text>
+                <Text style={styles.itemTimeLeft}>{props.timeLeft} left</Text>
+            </View>
         </TouchableHighlight>
     )
 }
@@ -29,19 +29,30 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 20,
         alignSelf: 'stretch',
-        backgroundColor: '#F0F0F0'
+        backgroundColor: '#F0F0F0',
     },
     box: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
         margin: 5,
         padding: 1,
     },
-    text: {
+    itemName: {
         fontSize: 20,
         margin: 5,
         padding: 5,
-
+    },
+    itemTime: {
+        fontSize: 15,
+        color: 'blue',
+        margin: 5,
+        padding: 5,
+    },
+    itemTimeLeft: {
+        fontSize: 15,
+        color: 'red',
+        margin: 5,
+        padding: 5,
     }
 });

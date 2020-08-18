@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
-  ScrollView, 
+  ScrollView,
   TextInput,
   Button
 } from 'react-native';
@@ -41,7 +41,7 @@ export const RoutineInput = (props) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        //justifyContent: 'space-around'
+        justifyContent: 'space-around'
     },
     inputBox: {
         margin: 2,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         flex: 1,
-        backgroundColor: 'snow'
+        backgroundColor: 'snow',
     },
     btn: {
         margin: 2,

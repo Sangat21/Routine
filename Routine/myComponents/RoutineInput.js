@@ -24,18 +24,8 @@ export const RoutineInput = (props) => {
         }
     }
 
-    return (
-        <View style={styles.container}>
-        <TextInput style={styles.inputBox}
-        placeholder="Add a new routine"
-        onChangeText={text => setNewRoutine(text)}
-        defaultValue={newRoutine}
-        />
-        <Text style={styles.btn}
-        onPress={() => submit(newRoutine.trim())}
-        > Add </Text>
-        </View>
-    )
+    return (<Text></Text>);
+
 }
 
 const styles = StyleSheet.create({

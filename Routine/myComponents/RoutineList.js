@@ -1,49 +1,50 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   FlatList
 } from 'react-native';
+import {useAsyncStorage} from '@react-native-community/async-storage';
 import {RoutineBtn} from './RoutineBtn.js'
 import {RoutineInput} from './RoutineInput.js'
 
 export const RoutineList = () => {
 
+    // create state for AsyncStorage
+    const {getItem, setItem} = useAsyncStorage('@routine_storage_key');
+
     // create state for allRoutines
-    const [allRoutines, setAllRoutines] = useState([
-        {key: 'Reading', time: '2:00', timeLeft: '1:05'},
-        {key: 'Walking', time: '1:00', timeLeft: '1:00'}
-    ]);
+    const [allRoutines, setAllRoutines] = useState([]);
 
-    // update allRoutines state
-    const addRoutine = (routine) => {
-        console.log("Adding New Routine -> ", routine);
-
-        if(!allRoutines.some(item => item.key == routine)){
-        // add new routine to state
-        setAllRoutines([
-            ...allRoutines,
-            {key: routine},
-        ])
-
-        console.log(routine, " Added Successfully");
-        } else {
-            console.log("Routine Exists");
-        }
+    // function to get items in storage
+    const getItemFromStorage = async () => {
+        const stringItem = await getItem();
+        const jsonItem = JSON.parse(stringItem);
+        setAllRoutines(jsonItem);
     }
+
+    // function to set item into storage
+    const writeItemToStorage = async (jsonVal) => {
+        const stringVal = JSON.stringify(jsonVal);
+        await setItem(stringVal);
+    }
+
+    useEffect(() => {
+        getItemFromStorage();
+    })
+
+    // if allRoutines is null, set to []
+    if(!allRoutines) setAllRoutines([]);
 
     return (
         <View style={styles.container}>
-        <RoutineInput style={styles.inputBox}
-            addNewRoutine={addRoutine}
-        />
-        <FlatList
-        data={allRoutines}
-        renderItem={
-            ({item}) => <RoutineBtn name={item.key} time={item.time} timeLeft={item.timeLeft} />
-        }
-        />
+            <FlatList
+            data={allRoutines}
+            renderItem={
+                ({item}) => <RoutineBtn name={item.key} time={item.time} timeLeft={item.timeLeft} />
+            }
+            />
         </View>
     )
 }
@@ -52,8 +53,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white'
         //paddingTop: 40,
-    },
-    inputBox: {
-        flex: 1,
     },
 });

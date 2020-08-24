@@ -29,13 +29,13 @@ const App: () => React$Node = () => {
     });
 
         return (
-            <RoutineList />
+            <RoutineList navTo={navigation} />
         )
     }
 
-    const InputScreen = () => {
+    const InputScreen = ({navigation}) => {
         return (
-            <InputForm />
+            <InputForm navTo={navigation} />
         )
     }
 

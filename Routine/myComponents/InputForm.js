@@ -14,7 +14,7 @@ export const InputForm = (props) => {
 
     // create state for newRoutine name and time
     const [newRoutineName, setNewRoutineName] = useState('');
-    const [newRoutineTime, setNewRoutineTime] = useState('');
+    const [newRoutineTime, setNewRoutineTime] = useState('1:00');
 
     const currRoutine = [
         // {key: 'Reading', time: '2:00', timeLeft: '1:05'},
@@ -48,13 +48,13 @@ export const InputForm = (props) => {
 
     // update allRoutines state
     const addNewRoutine = (routine) => {
-        console.log("Adding New Routine -> \n", routine);
+        console.log("\nAdding New Routine -> \n", routine);
 
-        console.log("\n\n\n Old List: \n",allRoutines, "\n\n\n\n\n\n");
+        console.log("\nOld List: \n",allRoutines, "\n\n\n\n\n\n");
 
         if(allRoutines != null) {
 
-            if(!allRoutines.some(item => item.key == routine)){
+            if(!allRoutines.some(item => item.key == routine.key)){
 
                 // add new routine to data in storage
                 const newData = [...allRoutines, routine];
@@ -62,10 +62,10 @@ export const InputForm = (props) => {
                 //add new data to storage
                 writeItemToStorage(newData);
 
-                console.log(routine, " Added Successfully");
-                console.log("\n\n\n New List: ",allRoutines, "\n\n\n\n\n\n");
+                console.log(routine.key, " Added Successfully");
+                console.log("\n New List: \n",allRoutines);
             } else {
-                console.log("Routine Exists");
+                console.log("Routine Exists!!!");
             }
         } else {
             writeItemToStorage([routine]);
@@ -76,7 +76,7 @@ export const InputForm = (props) => {
     const submit = (newName, newTime) => {
         // Confirming non-empty string was given
         if(newName != "") {
-            console.log("Submitted newRoutine -->", newName);
+            console.log("\nSubmitted newRoutine -->", newName);
 
             // update allRoutines
             //getItemFromStorage();
@@ -88,26 +88,27 @@ export const InputForm = (props) => {
             }
             // addNewRoutine is sent from RoutineList
             addNewRoutine(newRoutineItem);
-            setNewRoutineName('');
-            setNewRoutineTime('');
+
+            // Navigate to Home Screen
+            props.navTo.navigate('Your Routines');
         }
     }
 
     return (
         <View style={styles.container}>
-        <TextInput style={styles.inputBox}
-        placeholder="Routine Name"
-        onChangeText={text => setNewRoutineName(text)}
-        defaultValue={newRoutineName}
-        />
-        <TextInput style={styles.inputBox}
-        placeholder="Length (hh:mm)"
-        onChangeText={text => setNewRoutineTime(text)}
-        defaultValue={newRoutineTime}
-        />
-        <Text style={styles.btn}
-        onPress={() => submit(newRoutineName.trim(), newRoutineTime)}
-        > Add </Text>
+            <TextInput style={styles.inputBox}
+            placeholder="Routine Name"
+            onChangeText={text => setNewRoutineName(text)}
+            defaultValue={newRoutineName}
+            />
+            <TextInput style={styles.inputBox}
+            placeholder="Length (hh:mm)"
+            onChangeText={text => setNewRoutineTime(text)}
+            defaultValue={newRoutineTime}
+            />
+            <Text style={styles.btn}
+            onPress={() => submit(newRoutineName.trim(), newRoutineTime)}
+            > Add </Text>
         </View>
     )
 }

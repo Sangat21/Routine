@@ -11,7 +11,10 @@ export const RoutineBtn = (props) => {
     // props.name is sent from RoutineList
     return (
         <TouchableHighlight style={styles.button}
-        onPress={() => console.log(props.name, " Selected")}
+        onPress={() => {
+            console.log(props.name, " Selected");
+            props.navTo.navigate('Timer');
+        }}
         underlayColor="skyblue" >
             <View style={styles.box}>
                 <Text style={styles.itemName}>{props.name}</Text>

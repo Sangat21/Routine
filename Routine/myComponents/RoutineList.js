@@ -7,9 +7,8 @@ import {
 } from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
 import {RoutineBtn} from './RoutineBtn.js'
-import {RoutineInput} from './RoutineInput.js'
 
-export const RoutineList = () => {
+export const RoutineList = (props) => {
 
     // create state for AsyncStorage
     const {getItem, setItem} = useAsyncStorage('@routine_storage_key');
@@ -19,14 +18,14 @@ export const RoutineList = () => {
 
     // function to get items in storage
     const getItemFromStorage = async () => {
-        const stringItem = await getItem();
-        const jsonItem = JSON.parse(stringItem);
+        let stringItem = await getItem();
+        let jsonItem = JSON.parse(stringItem);
         setAllRoutines(jsonItem);
     }
 
     // function to set item into storage
     const writeItemToStorage = async (jsonVal) => {
-        const stringVal = JSON.stringify(jsonVal);
+        let stringVal = JSON.stringify(jsonVal);
         await setItem(stringVal);
     }
 
@@ -42,7 +41,7 @@ export const RoutineList = () => {
             <FlatList
             data={allRoutines}
             renderItem={
-                ({item}) => <RoutineBtn name={item.key} time={item.time} timeLeft={item.timeLeft} />
+                ({item}) => <RoutineBtn navTo={props.navTo} name={item.key} time={item.time} timeLeft={item.timeLeft} />
             }
             />
         </View>

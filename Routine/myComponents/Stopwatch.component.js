@@ -8,5 +8,12 @@ import {
 import {useAsyncStorage} from '@react-native-community/async-storage';
 
 export const Stopwatch = () => {
-    return <Text>This is the Stopwatch</Text>
+    return <Text style={styles.container}> This is the Stopwatch </Text>
 }
+
+const styles = StyleSheet.create({
+    container: {
+        margin: 10,
+        padding: 10,
+    },
+});

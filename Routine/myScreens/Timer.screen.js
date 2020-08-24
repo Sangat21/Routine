@@ -2,6 +2,7 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import {
   StyleSheet,
+  Button,
   View,
   Text
 } from 'react-native';
@@ -10,9 +11,29 @@ import {Stopwatch} from '../myComponents/Stopwatch.component.js';
 
 export const Timer = () => {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Welcome to Timer Screen</Text>
-            <Stopwatch />
+            <View style={styles.stopwatchContainer}>
+                <Stopwatch />
+            </View>
+            <View style={styles.deleteBtn}>
+                <Button title="Delete"/>
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center'
+        //justifyContent: 'center'
+    },
+    stopwatchContainer: {
+        flex: 1,
+    },
+    deleteBtn: {
+        paddingBottom: 40,
+    }
+});

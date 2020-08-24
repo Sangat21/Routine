@@ -6,7 +6,7 @@ import {
   FlatList
 } from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import {RoutineBtn} from './RoutineBtn.js'
+import {RoutineBtn} from '../myComponents/RoutineBtn.component.js'
 
 export const RoutineList = (props) => {
 

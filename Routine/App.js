@@ -10,8 +10,9 @@ import React from 'react';
 import {Text, Button} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {RoutineList} from './myComponents/RoutineList.js';
-import {InputForm} from './myComponents/InputForm.js';
+import {RoutineList} from './myScreens/RoutineList.screen.js';
+import {InputForm} from './myScreens/InputForm.screen.js';
+import {Timer} from './myScreens/Timer.screen.js';
 
 const App: () => React$Node = () => {
 
@@ -41,10 +42,10 @@ const App: () => React$Node = () => {
 
     // Function adds Stopwatch Screen components
     const TimerScreen = () => {
-        // Need to create Stopwatch Screen component
+
         return (
-            <Text> Timer Screen </Text>
-        )
+            <Timer />
+        );
     }
 
     const Stack = createStackNavigator();

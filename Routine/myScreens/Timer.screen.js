@@ -40,7 +40,7 @@ export const Timer = (props) => {
         let newRoutineList = allRoutines.filter((item) => item.key != props.routine.key);
         writeItemToStorage(newRoutineList);
         console.log(props.routine.key, " Deleted!!");
-        
+
         // navigate to Routine List
         props.navTo.navigate('Your Routines');
     }

@@ -90,7 +90,7 @@ export const InputForm = (props) => {
             addNewRoutine(newRoutineItem);
 
             // Navigate to Home Screen
-            props.navTo.navigate('Your Routines');
+            props.navTo.navigate('Home');
         }
     }
 

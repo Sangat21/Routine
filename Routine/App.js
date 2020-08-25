@@ -58,17 +58,9 @@ const App: () => React$Node = () => {
 
   return (
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="Your Routines">
-        <Stack.Screen name="Your Routines" component={HomeScreen}
-    //     options={{
-    //   headerRight: () => (
-    //     <Button
-    //       onPress={() => navigation.navigate('Add')}
-    //       title="Add"
-    //     />
-    //   ),
-    // }}
-/>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen}
+            options={{title: 'Your Routines'}}/>
         <Stack.Screen name="Add" component={InputScreen} />
         <Stack.Screen name="Timer" component={TimerScreen} />
       </Stack.Navigator>

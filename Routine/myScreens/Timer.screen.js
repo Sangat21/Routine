@@ -32,7 +32,7 @@ export const Timer = (props) => {
         console.log(props.routine.key, " Deleted!!");
 
         // navigate to Routine List
-        props.navTo.navigate('Your Routines');
+        props.navTo.navigate('Home');
     }
 
     return (

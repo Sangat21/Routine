@@ -15,7 +15,6 @@ export const Stopwatch = () => {
         <View>
             <Text style={styles.container}> This is the Stopwatch: {moment().format('hh:mm')} </Text>
         </View>
-
     )
 }
 

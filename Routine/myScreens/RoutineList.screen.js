@@ -10,20 +10,20 @@ import {RoutineBtn} from '../myComponents/RoutineBtn.component.js'
 
 export const RoutineList = (props) => {
 
-    // create state for AsyncStorage
+    // add methods for AsyncStorage
     const {getItem, setItem} = useAsyncStorage('@routine_storage_key');
 
     // create state for allRoutines
     const [allRoutines, setAllRoutines] = useState([]);
 
-    // function to get items in storage
+    // function to get items from storage
     const getItemFromStorage = async () => {
         let stringItem = await getItem();
         let jsonItem = JSON.parse(stringItem);
         setAllRoutines(jsonItem);
     }
 
-    // function to set item into storage
+    // function to set items into storage
     const writeItemToStorage = async (jsonVal) => {
         let stringVal = JSON.stringify(jsonVal);
         await setItem(stringVal);

@@ -24,17 +24,17 @@ export const InputForm = (props) => {
     // create state for allRoutines
     const [allRoutines, setAllRoutines] = useState(currRoutine);
 
-    // create state for AsyncStorage
+    // add methods for AsyncStorage
     const { getItem, setItem } = useAsyncStorage('@routine_storage_key');
 
-    // function to get items in storage
+    // function to get items from storage
     const getItemFromStorage = async () => {
         const stringItem = await getItem();
         const jsonItem = JSON.parse(stringItem);
         setAllRoutines(jsonItem);
     }
 
-    // function to set item into storage
+    // function to set items into storage
     const writeItemToStorage = async (jsonVal) => {
         const stringVal = JSON.stringify(jsonVal);
         await setItem(stringVal);
@@ -46,20 +46,22 @@ export const InputForm = (props) => {
     }, [])
 
 
-    // update allRoutines state
+    // function to add new routine
     const addNewRoutine = (routine) => {
         console.log("Adding New Routine -> \n", routine);
 
         //console.log("Old List: \n",allRoutines);
 
+        // check is allRoutines is empty
         if(allRoutines != null) {
 
+            // check for if routine already exists
             if(!allRoutines.some(item => item.key == routine.key)){
 
-                // add new routine to data in storage
+                // append new routine to new list
                 const newData = [...allRoutines, routine];
 
-                //add new data to storage
+                //replace new list in storage
                 writeItemToStorage(newData);
 
                 console.log(routine.key, " Added Successfully");
@@ -74,22 +76,20 @@ export const InputForm = (props) => {
 
     // function is called when user presses "Add" Btn
     const submit = (newName, newTime) => {
+
         // Confirming non-empty string was given
         if(newName != "") {
             console.log("Submitted newRoutine -->", newName);
 
-            // update allRoutines
-            //getItemFromStorage();
-
+            // create new routine with information
             const newRoutineItem = {
                 key: newName,
                 time: newTime,
                 timeLeft: newTime,
             }
-            // addNewRoutine is sent from RoutineList
             addNewRoutine(newRoutineItem);
 
-            // Navigate to Home Screen
+            // Navigate to Home Screen after adding new routine
             props.navTo.navigate('Home');
         }
     }

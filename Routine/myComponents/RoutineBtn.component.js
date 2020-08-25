@@ -6,9 +6,10 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+// component for each button
 export const RoutineBtn = (props) => {
-    // component for each button
-    // props.name is sent from RoutineList
+
+    // props.routine is sent from RoutineList
     return (
         <TouchableHighlight style={styles.button}
         onPress={() => {

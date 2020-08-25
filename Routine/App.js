@@ -16,7 +16,7 @@ import {Timer} from './myScreens/Timer.screen.js';
 
 const App: () => React$Node = () => {
 
-    // Function adds RoutineList component
+    // Function calls RoutineList Screen
     const HomeScreen = ({navigation}) => {
 
         React.useLayoutEffect(() => {
@@ -34,15 +34,16 @@ const App: () => React$Node = () => {
         )
     }
 
+    // Function calls InputForm Screen
     const InputScreen = ({navigation}) => {
         return (
             <InputForm navTo={navigation} />
         )
     }
 
-    // Function adds Stopwatch Screen components
+    // Function calls Timer Screen
     const TimerScreen = ({route, navigation}) => {
-        // get name of routine
+        // get routine and routineList from RoutineBtn
         const {item} = route.params;
         const {list} = route.params;
 
@@ -54,7 +55,6 @@ const App: () => React$Node = () => {
     }
 
     const Stack = createStackNavigator();
-
 
   return (
       <NavigationContainer>

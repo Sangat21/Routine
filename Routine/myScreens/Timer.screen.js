@@ -9,15 +9,50 @@ import {
 import {useAsyncStorage} from '@react-native-community/async-storage';
 import {Stopwatch} from '../myComponents/Stopwatch.component.js';
 
-export const Timer = () => {
+export const Timer = (props) => {
+
+    // create state for allRoutines
+    const [allRoutines, setAllRoutines] = useState([]);
+
+    // create state for AsyncStorage
+    const { getItem, setItem } = useAsyncStorage('@routine_storage_key');
+
+    // function to get items in storage
+    const getItemFromStorage = async () => {
+        const stringItem = await getItem();
+        const jsonItem = JSON.parse(stringItem);
+        setAllRoutines(jsonItem);
+    }
+
+    // function to set item into storage
+    const writeItemToStorage = async (jsonVal) => {
+        const stringVal = JSON.stringify(jsonVal);
+        await setItem(stringVal);
+    }
+
+    useEffect(() => {
+        getItemFromStorage();
+    }, [])
+
+    // Delete a routine
+    const deleteItem = () => {
+        console.log("Deleting Routine: \n", props.routine);
+        let newRoutineList = allRoutines.filter((item) => item.key != props.routine.key);
+        writeItemToStorage(newRoutineList);
+        console.log(props.routine.key, " Deleted!!");
+        
+        // navigate to Routine List
+        props.navTo.navigate('Your Routines');
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Welcome to Timer Screen</Text>
+            <Text>Welcome to {props.routine.key} Screen</Text>
             <View style={styles.stopwatchContainer}>
                 <Stopwatch />
             </View>
             <View style={styles.deleteBtn}>
-                <Button title="Delete"/>
+                <Button onPress={() => deleteItem()} title="Delete"/>
             </View>
         </View>
     )

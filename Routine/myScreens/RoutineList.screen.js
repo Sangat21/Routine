@@ -41,7 +41,7 @@ export const RoutineList = (props) => {
             <FlatList
             data={allRoutines}
             renderItem={
-                ({item}) => <RoutineBtn navTo={props.navTo} name={item.key} time={item.time} timeLeft={item.timeLeft} />
+                ({item}) => <RoutineBtn navTo={props.navTo} routine={item} />
             }
             />
         </View>

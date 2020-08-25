@@ -12,14 +12,16 @@ export const RoutineBtn = (props) => {
     return (
         <TouchableHighlight style={styles.button}
         onPress={() => {
-            console.log(props.name, " Selected");
-            props.navTo.navigate('Timer');
+            console.log(props.routine.key, " Selected");
+            props.navTo.navigate('Timer', {
+                item: props.routine,
+            });
         }}
         underlayColor="skyblue" >
             <View style={styles.box}>
-                <Text style={styles.itemName}>{props.name}</Text>
-                <Text style={styles.itemTime}>{props.time} hrs</Text>
-                <Text style={styles.itemTimeLeft}>{props.timeLeft} left</Text>
+                <Text style={styles.itemName}>{props.routine.key}</Text>
+                <Text style={styles.itemTime}>{props.routine.time} hrs</Text>
+                <Text style={styles.itemTimeLeft}>{props.routine.timeLeft} left</Text>
             </View>
         </TouchableHighlight>
     )

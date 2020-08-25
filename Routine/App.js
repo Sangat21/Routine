@@ -41,10 +41,14 @@ const App: () => React$Node = () => {
     }
 
     // Function adds Stopwatch Screen components
-    const TimerScreen = () => {
+    const TimerScreen = ({route, navigation}) => {
+        // get name of routine
+        const {item} = route.params;
 
+        // set header name
+        navigation.setOptions({title: item.key})
         return (
-            <Timer />
+            <Timer routine={item} navTo={navigation}/>
         );
     }
 

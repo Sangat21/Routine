@@ -48,9 +48,9 @@ export const InputForm = (props) => {
 
     // update allRoutines state
     const addNewRoutine = (routine) => {
-        console.log("\nAdding New Routine -> \n", routine);
+        console.log("Adding New Routine -> \n", routine);
 
-        console.log("\nOld List: \n",allRoutines, "\n\n\n\n\n\n");
+        //console.log("Old List: \n",allRoutines);
 
         if(allRoutines != null) {
 
@@ -63,7 +63,7 @@ export const InputForm = (props) => {
                 writeItemToStorage(newData);
 
                 console.log(routine.key, " Added Successfully");
-                console.log("\n New List: \n",allRoutines);
+                //console.log("\n New List: \n",allRoutines);
             } else {
                 console.log("Routine Exists!!!");
             }
@@ -76,7 +76,7 @@ export const InputForm = (props) => {
     const submit = (newName, newTime) => {
         // Confirming non-empty string was given
         if(newName != "") {
-            console.log("\nSubmitted newRoutine -->", newName);
+            console.log("Submitted newRoutine -->", newName);
 
             // update allRoutines
             //getItemFromStorage();

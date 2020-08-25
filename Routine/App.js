@@ -44,11 +44,12 @@ const App: () => React$Node = () => {
     const TimerScreen = ({route, navigation}) => {
         // get name of routine
         const {item} = route.params;
+        const {list} = route.params;
 
         // set header name
         navigation.setOptions({title: item.key})
         return (
-            <Timer routine={item} navTo={navigation}/>
+            <Timer routine={item} navTo={navigation} list={list}/>
         );
     }
 

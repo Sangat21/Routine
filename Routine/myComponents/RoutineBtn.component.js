@@ -15,6 +15,7 @@ export const RoutineBtn = (props) => {
             console.log(props.routine.key, " Selected");
             props.navTo.navigate('Timer', {
                 item: props.routine,
+                list: props.routineList,
             });
         }}
         underlayColor="skyblue" >

@@ -11,18 +11,11 @@ import {Stopwatch} from '../myComponents/Stopwatch.component.js';
 
 export const Timer = (props) => {
 
-    // create state for allRoutines
-    const [allRoutines, setAllRoutines] = useState([]);
+    // get list for allRoutines
+    const allRoutines = props.list;
 
     // create state for AsyncStorage
-    const { getItem, setItem } = useAsyncStorage('@routine_storage_key');
-
-    // function to get items in storage
-    const getItemFromStorage = async () => {
-        const stringItem = await getItem();
-        const jsonItem = JSON.parse(stringItem);
-        setAllRoutines(jsonItem);
-    }
+    const { setItem } = useAsyncStorage('@routine_storage_key');
 
     // function to set item into storage
     const writeItemToStorage = async (jsonVal) => {
@@ -30,13 +23,10 @@ export const Timer = (props) => {
         await setItem(stringVal);
     }
 
-    useEffect(() => {
-        getItemFromStorage();
-    }, [])
-
     // Delete a routine
     const deleteItem = () => {
         console.log("Deleting Routine: \n", props.routine);
+        console.log("\n\n Routine List: \n", allRoutines);
         let newRoutineList = allRoutines.filter((item) => item.key != props.routine.key);
         writeItemToStorage(newRoutineList);
         console.log(props.routine.key, " Deleted!!");

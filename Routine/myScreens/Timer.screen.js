@@ -7,7 +7,7 @@ import {
   Text
 } from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import {Stopwatch} from '../myComponents/Stopwatch.component.js';
+import {Watch} from '../myComponents/Stopwatch.component.js';
 
 export const Timer = (props) => {
 
@@ -43,7 +43,7 @@ export const Timer = (props) => {
         <View style={styles.container}>
             <Text>Welcome to {props.routine.key} Screen</Text>
             <View style={styles.stopwatchContainer}>
-                <Stopwatch />
+                <Watch />
             </View>
             <View style={styles.deleteBtn}>
                 <Button onPress={() => deleteItem()} title="Delete"/>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        alignItems: 'center'
+        alignItems: 'center',
         //justifyContent: 'center'
     },
     stopwatchContainer: {

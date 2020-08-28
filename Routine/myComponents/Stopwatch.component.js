@@ -7,13 +7,15 @@ import {
 } from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
 import moment from 'moment';
+import { Stopwatch } from 'react-native-stopwatch-timer'
 
 
-export const Stopwatch = () => {
+export const Watch = () => {
     // *** NEED TO WORK ON DISPLAYING STOPWATCH AND UPDATING TIME LEFT *** //
     return (
-        <View>
-            <Text style={styles.container}> This is the Stopwatch: {moment().format('hh:mm')} </Text>
+        <View style={styles.container}>
+            <Text> This is the Stopwatch: {moment().format('hh:mm')} </Text>
+            <Stopwatch />
         </View>
     )
 }

@@ -7,7 +7,7 @@ import {
   Text
 } from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import {Watch} from '../myComponents/Stopwatch.component.js';
+import { Stopwatch } from 'react-native-stopwatch-timer'
 
 export const Timer = (props) => {
 
@@ -39,14 +39,47 @@ export const Timer = (props) => {
         props.navTo.navigate('Home');
     }
 
+    // Stopwatch states and functions
+    const [start, setStart] = useState(false);
+    const [reset, setReset] = useState(false);
+    const [btnTxt, setBtnTxt] = useState('Start');
+    const [currTime, setCurrTime] = useState();
+
+    // when Start/Pause button is pressed
+    const onStartStop = () => {
+        // set button text
+        if(!start) setBtnTxt('Pause');
+        else setBtnTxt('Start');
+        setReset(false);
+        setStart(!start);
+    }
+
+    // when reset button is pressed
+    const onReset = () => {
+        setStart(false);
+        setReset(true);
+        setBtnTxt('Start');
+    }
+
+    // when submit button is pressed
+    const onSubmit = () => {
+        getTime();
+    }
+
     return (
         <View style={styles.container}>
             <Text>Welcome to {props.routine.key} Screen</Text>
             <View style={styles.stopwatchContainer}>
-                <Watch />
+                <Stopwatch start={start} reset={reset} getTime={(time) => console.log(time)}  />
+                <Text />
+                <Button style={styles.stopwatchBtn} onPress={() => onStartStop()} title={btnTxt} />
+                <Button style={styles.stopwatchBtn} onPress={()=>onReset()} title="reset" />
+                <Text />
+                <Button style={styles.stopwatchBtn} onPress={()=>onSubmit()} title="submit" />
+                <Text>{props.routine.timeLeft} Left Today</Text>
             </View>
             <View style={styles.deleteBtn}>
-                <Button onPress={() => deleteItem()} title="Delete"/>
+                <Button onPress={() => deleteItem()} title="Delete Routine"/>
             </View>
         </View>
     )
@@ -61,6 +94,10 @@ const styles = StyleSheet.create({
     },
     stopwatchContainer: {
         flex: 1,
+    },
+    stopwatchBtn: {
+        margin: 10,
+        padding: 10,
     },
     deleteBtn: {
         paddingBottom: 40,

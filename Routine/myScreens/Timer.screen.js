@@ -13,7 +13,7 @@ import moment from 'moment';
 export const Timer = (props) => {
 
     // get list for allRoutines
-    const allRoutines = props.list;
+    const [allRoutines, setAllRoutines] = useState(props.list);
 
     // add methods for AsyncStorage
     const { setItem } = useAsyncStorage('@routine_storage_key');
@@ -98,10 +98,24 @@ export const Timer = (props) => {
                 .format("HH:mm:ss");
          console.log("Difference: ", diff);
 
+         console.log("\nroutineList: \n", allRoutines);
+
+         let pos = allRoutines.findIndex((item) => item.key == props.routine.key);
+
+         console.log("pos: ", pos);
+
+         let newList = allRoutines;
+         newList[pos].timeLeft = diff;
+
+         console.log("\nnewList: \n", newList);
+
+         writeItemToStorage(newList);
+         setAllRoutines(newList);
+
          // ***
          setLeft(diff);
 
-        onReset();
+         onReset();
     }
 
     return (

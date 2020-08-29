@@ -7,7 +7,8 @@ import {
   Text
 } from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import { Stopwatch } from 'react-native-stopwatch-timer'
+import { Stopwatch } from 'react-native-stopwatch-timer';
+import moment from 'moment';
 
 export const Timer = (props) => {
 
@@ -43,13 +44,21 @@ export const Timer = (props) => {
     const [start, setStart] = useState(false);
     const [reset, setReset] = useState(false);
     const [btnTxt, setBtnTxt] = useState('Start');
+    const [disable, setDisable] = useState(true);
     const [currTime, setCurrTime] = useState();
+    const [left, setLeft] = useState(props.routine.timeLeft);
 
     // when Start/Pause button is pressed
     const onStartStop = () => {
         // set button text
-        if(!start) setBtnTxt('Pause');
-        else setBtnTxt('Start');
+        if(!start) {
+            setBtnTxt('Pause');
+            setDisable(true);
+        }
+        else {
+            setBtnTxt('Resume');
+            setDisable(false);
+        }
         setReset(false);
         setStart(!start);
     }
@@ -59,24 +68,54 @@ export const Timer = (props) => {
         setStart(false);
         setReset(true);
         setBtnTxt('Start');
+        setDisable(true);
     }
 
     // when submit button is pressed
     const onSubmit = () => {
-        getTime();
+        // console.log("Current Time: ", currTime);
+        // let myTime = currTime;
+        // let timeArr = myTime.split(":");
+        // console.log("timeArr: ", timeArr);
+        // let hour = timeArr[0];
+        // let minute = (timeArr[2] > 30 ? (Number(timeArr[1]) + 1) + "" : timeArr[1]);
+        // console.log("\nHour: ", hour, "\nMinute: ", minute);
+        //
+        // var startTime = currTime;
+        // var oldTime = props.routine.timeLeft;
+        // var endTime = oldTime + ":00";
+
+        var startTime = moment(currTime, "HH:mm:ss");
+        var endTime = moment((props.routine.timeLeft)+":00", "HH:mm:ss");
+
+        console.log("\nStartTime: ", startTime, "\nEndTime: ", endTime);
+
+        //console.log("\n\n Subtracted: ", moment((eTime.diff(sTime))).format("hh:mm:ss"));
+         //(eTime.diff(sTime))/1000);
+
+         let diff = moment.utc(moment(endTime,"HH:mm:ss")
+            .diff(moment(startTime,"HH:mm:ss")))
+                .format("HH:mm:ss");
+         console.log("Difference: ", diff);
+
+         // ***
+         setLeft(diff);
+
+        onReset();
     }
 
     return (
         <View style={styles.container}>
             <Text>Welcome to {props.routine.key} Screen</Text>
             <View style={styles.stopwatchContainer}>
-                <Stopwatch start={start} reset={reset} getTime={(time) => console.log(time)}  />
+                <Stopwatch start={start} reset={reset} getTime={(time) => setCurrTime(time)}  />
                 <Text />
                 <Button style={styles.stopwatchBtn} onPress={() => onStartStop()} title={btnTxt} />
                 <Button style={styles.stopwatchBtn} onPress={()=>onReset()} title="reset" />
                 <Text />
-                <Button style={styles.stopwatchBtn} onPress={()=>onSubmit()} title="submit" />
-                <Text>{props.routine.timeLeft} Left Today</Text>
+                <Button style={styles.stopwatchBtn} onPress={()=>onSubmit()}
+                    title="submit" disabled={disable} />
+                <Text>{left} Left Today</Text>
             </View>
             <View style={styles.deleteBtn}>
                 <Button onPress={() => deleteItem()} title="Delete Routine"/>

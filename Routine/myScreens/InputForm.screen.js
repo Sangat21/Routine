@@ -77,6 +77,8 @@ export const InputForm = (props) => {
     // function is called when user presses "Add" Btn
     const submit = (newName, newTime) => {
 
+        let timeLeft = newTime + ":00";
+
         // Confirming non-empty string was given
         if(newName != "") {
             console.log("Submitted newRoutine -->", newName);
@@ -85,7 +87,7 @@ export const InputForm = (props) => {
             const newRoutineItem = {
                 key: newName,
                 time: newTime,
-                timeLeft: newTime,
+                timeLeft: timeLeft,
             }
             addNewRoutine(newRoutineItem);
 

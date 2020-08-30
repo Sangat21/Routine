@@ -9,6 +9,9 @@ import {
 // component for each button
 export const RoutineBtn = (props) => {
 
+    // show TimeLeft as hh:mm
+    let timeLeft = props.routine.timeLeft.slice(0,-3);
+
     // props.routine is sent from RoutineList
     return (
         <TouchableHighlight style={styles.button}
@@ -23,7 +26,7 @@ export const RoutineBtn = (props) => {
             <View style={styles.box}>
                 <Text style={styles.itemName}>{props.routine.key}</Text>
                 <Text style={styles.itemTime}>{props.routine.time} hrs</Text>
-                <Text style={styles.itemTimeLeft}>{props.routine.timeLeft} left</Text>
+                <Text style={styles.itemTimeLeft}>{timeLeft} left</Text>
             </View>
         </TouchableHighlight>
     )

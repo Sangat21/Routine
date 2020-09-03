@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useState, useEffect} from 'react';
 import {
+    AppState,
   StyleSheet,
   Button,
   View,
@@ -11,6 +12,38 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 import moment from 'moment';
 
 export const Timer = (props) => {
+
+    const appState = useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
+    //console.log("AppState: ", appState);
+
+    useEffect(() => {
+    AppState.addEventListener("change", (state) => _handleAppStateChange(state));
+
+    return () => {
+      AppState.removeEventListener("change", (state) =>  _handleAppStateChange(state));
+    };
+  }, []);
+
+  const _handleAppStateChange = (nextAppState) => {
+        if ( // if app went to background
+          appState.current.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          console.log("App has come to the foreground!");
+      } else if (
+          appState.current.match(/active/) &&
+          nextAppState === "background"
+      ) {
+          console.log("Going to the Background");
+          //onSubmit();
+      }
+
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        //console.log("AppState", appState.current);
+    };
 
     // get list for allRoutines
     const [allRoutines, setAllRoutines] = useState(props.list);
@@ -26,8 +59,8 @@ export const Timer = (props) => {
 
     // function will delete selected routine
     const deleteItem = () => {
-        console.log("Deleting Routine: \n", props.routine);
-        console.log("\n\n Routine List: \n", allRoutines);
+        //console.log("Deleting Routine: \n", props.routine);
+        //console.log("\n\n Routine List: \n", allRoutines);
 
         // filter out selected routine from routine list
         let newRoutineList = allRoutines.filter((item) => item.key != props.routine.key);
@@ -73,14 +106,14 @@ export const Timer = (props) => {
     // when submit button is pressed
     const onSubmit = () => {
 
-        console.log("currTime: ", currTime);
-        console.log("endTime: ", props.routine.timeLeft);
+        // console.log("currTime: ", currTime);
+        // console.log("endTime: ", props.routine.timeLeft);
 
         var startTime = moment(currTime, "HH:mm:ss");//.format("HH:mm:ss");
         var endTime = moment((props.routine.timeLeft), "HH:mm:ss");//.format("HH:mm:ss");
         //console.log("\nStartTime: ", startTime, "\nEndTime: ", endTime);
 
-        console.log("moment.MAX: ", moment.max(startTime, endTime).format("HH:mm:ss"));
+        //console.log("moment.MAX: ", moment.max(startTime, endTime).format("HH:mm:ss"));
 
         var newList = allRoutines;
         // if more than timeLeft was spent on task
@@ -91,7 +124,7 @@ export const Timer = (props) => {
             let diff = moment.utc(moment(endTime,"HH:mm:ss")
                .diff(moment(startTime,"HH:mm:ss")))
                    .format("HH:mm:ss");
-            console.log("Difference: ", diff);
+            //console.log("Difference: ", diff);
 
             let pos = allRoutines.findIndex((item) => item.key == props.routine.key);
             newList[pos].timeLeft = diff;

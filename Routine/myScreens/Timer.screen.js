@@ -46,7 +46,6 @@ export const Timer = (props) => {
     const [btnTxt, setBtnTxt] = useState('Start');
     const [disable, setDisable] = useState(true);
     const [currTime, setCurrTime] = useState();
-    const [left, setLeft] = useState(props.routine.timeLeft);
 
     // when Start/Pause button is pressed
     const onStartStop = () => {
@@ -73,54 +72,40 @@ export const Timer = (props) => {
 
     // when submit button is pressed
     const onSubmit = () => {
-        // console.log("Current Time: ", currTime);
-        // let myTime = currTime;
-        // let timeArr = myTime.split(":");
-        // console.log("timeArr: ", timeArr);
-        // let hour = timeArr[0];
-        // let minute = (timeArr[2] > 30 ? (Number(timeArr[1]) + 1) + "" : timeArr[1]);
-        // console.log("\nHour: ", hour, "\nMinute: ", minute);
-        //
-        // var startTime = currTime;
-        // var oldTime = props.routine.timeLeft;
-        // var endTime = oldTime + ":00";
 
-        var startTime = moment(currTime, "HH:mm:ss");
-        var endTime = moment((props.routine.timeLeft)+":00", "HH:mm:ss");
+        console.log("currTime: ", currTime);
+        console.log("endTime: ", props.routine.timeLeft);
 
-        console.log("\nStartTime: ", startTime, "\nEndTime: ", endTime);
+        var startTime = moment(currTime, "HH:mm:ss");//.format("HH:mm:ss");
+        var endTime = moment((props.routine.timeLeft), "HH:mm:ss");//.format("HH:mm:ss");
+        //console.log("\nStartTime: ", startTime, "\nEndTime: ", endTime);
 
-        //console.log("\n\n Subtracted: ", moment((eTime.diff(sTime))).format("hh:mm:ss"));
-         //(eTime.diff(sTime))/1000);
+        console.log("moment.MAX: ", moment.max(startTime, endTime).format("HH:mm:ss"));
 
-         let diff = moment.utc(moment(endTime,"HH:mm:ss")
-            .diff(moment(startTime,"HH:mm:ss")))
-                .format("HH:mm:ss");
-         console.log("Difference: ", diff);
+        var newList = allRoutines;
+        // if more than timeLeft was spent on task
+        if(moment.max(startTime, endTime).format("HH:mm:ss") == startTime.format("HH:mm:ss")){
+            let pos = allRoutines.findIndex((item) => item.key == props.routine.key);
+            newList[pos].timeLeft = "00:00:00";
+        } else {
+            let diff = moment.utc(moment(endTime,"HH:mm:ss")
+               .diff(moment(startTime,"HH:mm:ss")))
+                   .format("HH:mm:ss");
+            console.log("Difference: ", diff);
 
-         console.log("\nroutineList: \n", allRoutines);
-
-         let pos = allRoutines.findIndex((item) => item.key == props.routine.key);
-
-         console.log("pos: ", pos);
-
-         let newList = allRoutines;
-         newList[pos].timeLeft = diff;
-
-         console.log("\nnewList: \n", newList);
+            let pos = allRoutines.findIndex((item) => item.key == props.routine.key);
+            newList[pos].timeLeft = diff;
+        }
 
          writeItemToStorage(newList);
          setAllRoutines(newList);
-
-         // ***
-         setLeft(diff);
 
          onReset();
     }
 
     return (
         <View style={styles.container}>
-            <Text>Welcome to {props.routine.key} Screen</Text>
+            <Text />
             <View style={styles.stopwatchContainer}>
                 <Stopwatch start={start} reset={reset} getTime={(time) => setCurrTime(time)}  />
                 <Text />
@@ -129,7 +114,7 @@ export const Timer = (props) => {
                 <Text />
                 <Button style={styles.stopwatchBtn} onPress={()=>onSubmit()}
                     title="submit" disabled={disable} />
-                <Text>{left} Left Today</Text>
+                <Text>{props.routine.timeLeft} Left Today</Text>
             </View>
             <View style={styles.deleteBtn}>
                 <Button onPress={() => deleteItem()} title="Delete Routine"/>

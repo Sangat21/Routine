@@ -9,8 +9,15 @@ import {
 // component for each button
 export const RoutineBtn = (props) => {
 
+    var timeLeftColor = 'red';
+
     // show TimeLeft as hh:mm
     let timeLeft = props.routine.timeLeft.slice(0,-3);
+
+    // if task has been completed
+    if(props.routine.timeLeft === "00:00:00"){
+        timeLeftColor = 'green';
+    }
 
     // props.routine is sent from RoutineList
     return (
@@ -26,7 +33,7 @@ export const RoutineBtn = (props) => {
             <View style={styles.box}>
                 <Text style={styles.itemName}>{props.routine.key}</Text>
                 <Text style={styles.itemTime}>{props.routine.time} hrs</Text>
-                <Text style={styles.itemTimeLeft}>{timeLeft} left</Text>
+                <Text style={[{color: timeLeftColor}, styles.itemTimeLeft]}>{timeLeft} left</Text>
             </View>
         </TouchableHighlight>
     )
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
     },
     itemTimeLeft: {
         fontSize: 15,
-        color: 'red',
+        //color: 'red',
         margin: 5,
         padding: 5,
     }

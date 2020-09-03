@@ -14,7 +14,7 @@ export const InputForm = (props) => {
 
     // create state for newRoutine name and time
     const [newRoutineName, setNewRoutineName] = useState('');
-    const [newRoutineTime, setNewRoutineTime] = useState('1:00');
+    const [newRoutineTime, setNewRoutineTime] = useState('01:00');
 
     const currRoutine = [
         // {key: 'Reading', time: '2:00', timeLeft: '1:05'},
